@@ -1,0 +1,5 @@
+This is line number 1 of the get_next_line_test1.txt file.
+This is line number 2.
+This is the third line of this file.
+And here's the 4th one.
+Aaaaaaaaaand finally .....................................here's the fifth line.
