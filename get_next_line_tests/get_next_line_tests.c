@@ -1,32 +1,19 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int     main(void)
+int     main(int argc, char *argv[])
 {
-        /*
-        FILE    *fh;
-        char    c;
+        int             fd;
+        char    *nxt_line;
 
-        fh = fopen("get_next_line_test1.txt", "r");
-        if (fh != NULL)
+        if (argc > 2)
         {
-                while ((c = fgetc(fh)) != EOF)
-                        putchar(c);
-                fclose(fh);
+                printf("Please insert name for 1 file ONLY.\n");
+                return (1);
         }
-        else
-                printf("Error opening file.\n");
-        */
-        int     fd;
-        char    *line;
-
-        fd = open("get_next_line_test1.txt", O_RDONLY);
-        if (fd < 0)
-                printf("Error opening file.\n");
-        else
-        {
-                while ((line = get_next_line(fd)) > 0)
-                        printf("%s", line);
-        }
+        fd = open(argv[1], O_RDONLY);
+        printf("fd: %d\n", fd);
+        while ((nxt_line = get_next_line(fd)))
+                printf("%s", nxt_line);
         return (0);
 }
