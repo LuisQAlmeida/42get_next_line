@@ -2,7 +2,7 @@
 
 char    *get_next_line(int fd)
 {
-        static char     *buffer[BUFFER_SIZE + 1];
+        static char     buffer[BUFFER_SIZE + 1];
         ssize_t         bytes_read;
         char            *nxt_line;
         int             full_line;
@@ -12,11 +12,11 @@ char    *get_next_line(int fd)
                 return (NULL);
         while (!full_line)
         {
-                bytes_read = (fd, buffer, BUFFER_SIZE);
+                bytes_read = read(fd, buffer, BUFFER_SIZE);
                 if (!bytes_read)
                         return (NULL);
                 else if (!bytes_read == -1)
-                        return ("READ() ERROR");
+                        return (NULL);
                 else
                 {
                         ft_build_line(buffer, nxt_line);
