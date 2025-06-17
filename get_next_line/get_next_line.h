@@ -13,5 +13,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char    *get_next_line(int fd);
+char	*get_next_line(int fd);
+char	*ft_build_line(char *buffer, char *nxt_line);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+size_t	ft_strlen_nl(const char *s, int stop_at_nl);
+void	ft_cut_buffer(char *buffer);
 #endif
