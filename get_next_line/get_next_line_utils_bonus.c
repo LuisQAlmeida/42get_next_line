@@ -1,4 +1,4 @@
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen_nl(const char *s, int stop_at_nl)
 {
@@ -73,9 +73,9 @@ void	ft_cut_buffer(char *buffer)
 		buffer[j++] = '\0';
 }
 
-char	*ft_build_line(char *buf, char *nxt)
+char	*ft_build_line(char **buf, char *nxt)
 {
-	nxt = ft_strjoin_gnl(nxt, buf);
-	ft_cut_buffer(buf);
+	nxt = ft_strjoin_gnl(nxt, *buf);
+	ft_cut_buffer(*buf);
 	return (nxt);
 }
