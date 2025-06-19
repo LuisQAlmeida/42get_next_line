@@ -44,15 +44,19 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	new = malloc(len1 + len2 + 1);
 	if (!new)
 		return (NULL);
-	while (i < len1)
+	if (s1)
 	{
-		new[i] = s1[i];
-		i++;
+		while (i < len1)
+		{
+			new[i] = s1[i];
+			i++;
+		}
 	}
 	while (j < len2)
 		new[i++] = s2[j++];
 	new[i] = '\0';
-	free(s1);
+	if (s1)
+		free(s1);
 	return (new);
 }
 

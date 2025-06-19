@@ -31,7 +31,7 @@ char    *get_next_line(int fd)
                 if (!nxt_line || ft_strchr(nxt_line, '\n'))
                         break ;
         }
-        if (!nxt_line || !nxt_line[0])
-                return (free(nxt_line), NULL);
+        if (!nxt_line)
+                return (NULL);
         return (nxt_line);
 }

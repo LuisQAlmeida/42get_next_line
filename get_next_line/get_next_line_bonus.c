@@ -19,20 +19,20 @@ char    *get_next_line(int fd)
         nxt_line = NULL;
         if (err_handle(fd))
                 return (NULL);
-        while (1)
-        {
-                if (!buffers[fd] || !buffers[fd][0])
-                {
-                        bytes_read = read(fd, buffer, BUFFER_SIZE);
-                        if (bytes_read <= 0)
-                                break ;
-                        buffer[bytes_read] = '\0';
-                }
-                nxt_line = ft_build_line(&buffers[fd], nxt_line);
-                if (!nxt_line || ft_strchr(nxt_line, '\n'))
-                        break ;
-        }
-        if (!nxt_line || !nxt_line[0])
-                return (free(nxt_line), NULL);
+        while (!ft_strchr(buffers[fd], '\n'))
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
+			return (free(buffers[fd]), buffers[fd] = NULL, free(nxt_line), NULL);
+		if (bytes_read == 0)
+			break ;
+		buffer[bytes_read] = '\0';
+		buffers[fd] = ft_strjoin_gnl(buffers[fd], buffer);
+		if (!buffers[fd])
+			return (free(nxt_line), NULL);
+	}
+	nxt_line = ft_build_line(&buffers[fd], nxt_line);
+        if (!nxt_line)
+                return (NULL);
         return (nxt_line);
 }

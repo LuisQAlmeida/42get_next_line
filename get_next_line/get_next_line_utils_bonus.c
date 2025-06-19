@@ -18,6 +18,8 @@ size_t	ft_strlen_nl(const char *s, int stop_at_nl)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == (char)c)
@@ -44,12 +46,12 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	new = malloc(len1 + len2 + 1);
 	if (!new)
 		return (NULL);
-	while (i < len1)
+	while (s1 && i < len1)
 	{
 		new[i] = s1[i];
 		i++;
 	}
-	while (j < len2)
+	while (s2 && j < len2)
 		new[i++] = s2[j++];
 	new[i] = '\0';
 	free(s1);
@@ -63,19 +65,28 @@ void	ft_cut_buffer(char *buffer)
 
 	i = 0;
 	j = 0;
+	if (!buffer)
+		return ;
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (buffer[i] == '\n')
 		i++;
 	while (buffer[i])
 		buffer[j++] = buffer[i++];
-	while (j < BUFFER_SIZE)
+	while (buffer[j])
 		buffer[j++] = '\0';
 }
 
 char	*ft_build_line(char **buf, char *nxt)
 {
+	if (!*buf || !**buf)
+		return (nxt);
 	nxt = ft_strjoin_gnl(nxt, *buf);
 	ft_cut_buffer(*buf);
+	if (!**buf)
+	{
+		free(*buf);
+		*buf = NULL;
+	}
 	return (nxt);
 }
