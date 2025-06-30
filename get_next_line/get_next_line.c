@@ -1,37 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luis-almeida <luis-almeida@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/30 19:24:25 by luis-almeid       #+#    #+#             */
+/*   Updated: 2025/06/30 19:24:27 by luis-almeid      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-static int      err_handle(int fd)
+static void	ft_free_ptr(char **ptr)
 {
-        if (fd < 0)
-                return (1);
-        if (BUFFER_SIZE <= 0 || BUFFER_SIZE > MAX_BUFFER_SIZE)
-                return (1);
-        return (0);
+	if (ptr && *ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }
 
-char    *get_next_line(int fd)
+static char	*ft_build_line(char *buffer, char *line)
 {
-        static char     buffer[BUFFER_SIZE + 1];
-        ssize_t         bytes_read;
-        char            *nxt_line;
+	char	*tmp;
 
-        nxt_line = NULL;
-        if (err_handle(fd))
-                return (NULL);
-        while (1)
-        {
-                if (!buffer[0])
-                {
-                        bytes_read = read(fd, buffer, BUFFER_SIZE);
-                        if (bytes_read <= 0)
-                                break ;
-                        buffer[bytes_read] = '\0';
-                }
-                nxt_line = ft_build_line(buffer, nxt_line);
-                if (!nxt_line || ft_strchr(nxt_line, '\n'))
-                        break ;
-        }
-        if (!nxt_line)
-                return (NULL);
-        return (nxt_line);
+	tmp = ft_strjoin_nl(line, buffer);
+	if (!tmp)
+		return (NULL);
+	ft_remain_buf(buffer);
+	return (tmp);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+	ssize_t		bytes;
+
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	while (1)
+	{
+		if (!buffer[0])
+		{
+			bytes = read(fd, buffer, BUFFER_SIZE);
+			if (bytes < 0)
+				return (ft_free_ptr(&line), NULL);
+			if (bytes == 0)
+				break ;
+			buffer[bytes] = '\0';
+		}
+		line = ft_build_line(buffer, line);
+		if (!line || ft_strchr(line, '\n'))
+			break ;
+	}
+	if (line && *line)
+		return (line);
+	return (ft_free_ptr(&line), NULL);
 }

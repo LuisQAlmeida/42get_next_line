@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luis-almeida <luis-almeida@student.42.f    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/19 20:15:01 by luis-almeid       #+#    #+#             */
+/*   Updated: 2025/06/19 20:15:03 by luis-almeid      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10
 
 # endif
 
@@ -14,9 +26,9 @@
 # include <stdlib.h>
 
 char	*get_next_line(int fd);
-char	*ft_build_line(char *buffer, char *nxt_line);
+size_t	ft_strlen_nl(const char *s);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin_gnl(char *s1, char *s2);
-size_t	ft_strlen_nl(const char *s, int stop_at_nl);
-void	ft_cut_buffer(char *buffer);
+void	ft_strjoin_copy(char *res, char *s1, char *s2, size_t len2);
+char	*ft_strjoin_nl(char *s1, char *s2);
+void	ft_remain_buf(char *buffer);
 #endif
