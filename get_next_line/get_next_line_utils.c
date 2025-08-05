@@ -12,90 +12,88 @@
 
 #include "get_next_line.h"
 
-size_t	ft_strlen_nl(const char *s)
+size_t  ft_strlen_gnl(const char *s)
 {
-	size_t	i;
+        size_t  i;
 
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] && s[i] != '\n')
-		i++;
-	if (s[i] == '\n')
-		return (i + 1);
-	return (i);
+        i = 0;
+        if (!s) 
+                return (0); 
+        while (s[i] && s[i] != '\n')
+                i++;
+        if (s[i] == '\n') 
+                return (i + 1);
+        return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char    *ft_strchr(const char *s, int c)
 {
-	if (!s)
-		return (NULL);
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if ((char)c == 0)
-		return ((char *)s);
-	return (NULL);
+        while (*s)
+        {
+                if (*s == (char)c)
+                        return ((char *)s);
+                s++;
+        }
+        if ((char)c == 0)
+                return ((char *)s);
+        return (NULL);
 }
 
-void	ft_strjoin_copy(char *res, char *s1, char *s2, size_t len2)
+void    ft_concat(char *nxt_line, char *line, char *buffer, size_t len_buffer)
 {
-	size_t	i;
-	size_t	j;
+        size_t  i;
+        size_t  j;
 
-	i = 0;
-	j = 0;
-	while (s1 && s1[i])
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	while (j < len2)
-	{
-		res[i++] = s2[j];
-		j++;
-	}
-	res[i] = '\0';
+        i = 0;
+        j = 0;
+        while (line && line[i])
+        {
+                nxt_line[i] = line[i];
+                i++;
+        }
+        while (j < len_buffer)
+        {
+                nxt_line[i++] = buffer[j];
+                j++;
+        }
+        nxt_line[i] = '\0';
 }
 
-char	*ft_strjoin_nl(char *s1, char *s2)
+char    *ft_strjoin_gnl(char *line, char *buffer)
 {
-	size_t	len1;
-	size_t	len2;
-	char	*res;
+        size_t  len_line;
+        size_t  len_buffer;
+        char    *nxt_line;
 
-	len1 = 0;
-	while (s1 && s1[len1])
-		len1++;
-	len2 = 0;
-	while (s2[len2] && s2[len2] != '\n')
-		len2++;
-	if (s2[len2] == '\n')
-		len2++;
-	res = malloc(len1 + len2 + 1);
-	if (!res)
-		return (free(s1), NULL);
-	ft_strjoin_copy(res, s1, s2, len2);
-	free(s1);
-	return (res);
+        len_line = 0;
+        while (line && line[len_line])
+                len_line++;
+        len_buffer = 0;
+        while (buffer[len_buffer] && buffer[len_buffer] != '\n')
+                len_buffer++;
+        if (buffer[len_buffer] == '\n')
+                len_buffer++;
+        nxt_line = malloc(len_line + len_buffer + 1);
+        if (!nxt_line)
+                return (free(line), NULL);
+        ft_concat(nxt_line, line, buffer, len_buffer);
+        free(line);
+        return (nxt_line);
 }
 
-void	ft_remain_buf(char *buffer)
+void    ft_excess(char *buffer)
 {
-	size_t	i;
-	size_t	j;
+        size_t  i;
+        size_t  j;
 
-	i = 0;
-	j = 0;
-	while (buffer[i] && buffer[i] != '\n')
-		i++;
-	if (buffer[i] == '\n')
-		i++;
-	while (buffer[i])
-		buffer[j++] = buffer[i++];
-	while (j < BUFFER_SIZE)
-		buffer[j++] = '\0';
+        i = 0;
+        j = 0;
+        while (buffer[i] && buffer[i] != '\n')
+                i++;
+        if (buffer[i] == '\n')
+                i++;
+        while (buffer[i])
+                buffer[j++] = buffer[i++];
+        while (j < BUFFER_SIZE)
+                buffer[j++] = '\0';
 }
