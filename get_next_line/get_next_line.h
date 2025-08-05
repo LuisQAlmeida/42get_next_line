@@ -25,10 +25,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*get_next_line(int fd);
-size_t	ft_strlen_nl(const char *s);
-char	*ft_strchr(const char *s, int c);
-void	ft_strjoin_copy(char *res, char *s1, char *s2, size_t len2);
-char	*ft_strjoin_nl(char *s1, char *s2);
-void	ft_remain_buf(char *buffer);
+char    *get_next_line(int fd);
+size_t  ft_strlen_gnl(const char *s);
+char    *ft_strchr(const char *s, int c);
+void    ft_concat(char *nxt_line, char *line, char *buffer, size_t len_buffer);
+char    *ft_strjoin_gnl(char *line, char *buffer);
+void    ft_excess(char *buffer);
 #endif
