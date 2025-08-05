@@ -12,51 +12,51 @@
 
 #include "get_next_line.h"
 
-static void	ft_free_ptr(char **ptr)
+static void     ft_free(char **ptr)
 {
-	if (ptr && *ptr)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
+        if (ptr && *ptr)
+        {
+                free(*ptr);
+                *ptr = NULL;
+        }
 }
 
-static char	*ft_build_line(char *buffer, char *line)
+static char     *ft_build(char *buffer, char *line)
 {
-	char	*tmp;
+        char    *nxt_line;
 
-	tmp = ft_strjoin_nl(line, buffer);
-	if (!tmp)
-		return (NULL);
-	ft_remain_buf(buffer);
-	return (tmp);
+        nxt_line = ft_strjoin_gnl(line, buffer);
+        if (!nxt_line)
+                return (NULL);
+        ft_excess(buffer);
+        return (nxt_line);
 }
 
-char	*get_next_line(int fd)
+char    *get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
-	ssize_t		bytes;
+        static char     buffer[BUFFER_SIZE + 1];
+        char            *nxt_line;
+        ssize_t         bytes_read;
 
-	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	while (1)
-	{
-		if (!buffer[0])
-		{
-			bytes = read(fd, buffer, BUFFER_SIZE);
-			if (bytes < 0)
-				return (ft_free_ptr(&line), NULL);
-			if (bytes == 0)
-				break ;
-			buffer[bytes] = '\0';
-		}
-		line = ft_build_line(buffer, line);
-		if (!line || ft_strchr(line, '\n'))
-			break ;
-	}
-	if (line && *line)
-		return (line);
-	return (ft_free_ptr(&line), NULL);
+        nxt_line = NULL;
+        if (fd < 0 || BUFFER_SIZE <= 0)
+                return (NULL);
+        while (1)
+        {
+                if (!buffer[0])
+                {
+                        bytes_read = read(fd, buffer, BUFFER_SIZE);
+                        if (bytes_read < 0)
+                                return (ft_free(&nxt_line), NULL);
+                        if (bytes_read == 0)
+                                break ;
+                        buffer[bytes_read] = '\0';
+                }
+                nxt_line = ft_build(buffer, nxt_line);
+                if (!nxt_line || ft_strchr(nxt_line, '\n'))
+                        break ;
+        }
+        if (nxt_line && *nxt_line)
+                return (nxt_line);
+        return (ft_free(&nxt_line), NULL);
 }
