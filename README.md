@@ -415,6 +415,7 @@ the tested paths finish without memory leaks or invalid memory accesses.
 │   ├── run_tests.sh
 │   └── tests.c
 ├── .gitignore
+├── Doxyfile
 ├── LICENSE
 └── README.md
 ```
@@ -624,6 +625,11 @@ Each compiler job:
 4. verifies that validation leaves the repository unchanged;
 5. verifies that ignored generated artefacts were not left behind.
 
+A separate `CI / documentation` job validates the repository-controlled
+Doxygen API documentation. It generates HTML from `Doxyfile`, verifies the
+expected output and representative maintained API symbols, removes the
+generated files, and verifies repository cleanliness.
+
 Ubuntu 24.04 is the environment used for reproducible CI validation, not a claim
 that the implementation is restricted exclusively to that platform.
 
@@ -646,6 +652,61 @@ Current maintained validation:
 | Memory remaining at exit | 0 bytes |
 | CI pull-request validation | PASS |
 | CI push-to-main validation | PASS |
+
+---
+
+## Doxygen Documentation
+
+The maintained interface in `get_next_line/get_next_line.h` is documented
+using Doxygen-style comments.
+
+The generated API documentation describes:
+
+- `get_next_line()` and its ownership contract;
+- newline, EOF, and error behaviour;
+- the configurable `BUFFER_SIZE` interface;
+- the persistent static-buffer model;
+- the maintained single-file-descriptor scope;
+- the lack of independent buffered state for interleaved descriptors;
+- the support functions exposed by the maintained header;
+- the memory-transfer behaviour of `ft_strjoin_gnl()`;
+- the buffer-compaction role of `ft_excess()`.
+
+The documentation reflects the actual maintained implementation. It does not
+claim support for the historical bonus multi-file-descriptor behaviour.
+
+The repository tracks a canonical `Doxyfile`.
+
+Install Doxygen on Ubuntu if required:
+
+```sh
+sudo apt install doxygen
+```
+
+Generate the documentation from the repository root:
+
+```sh
+doxygen Doxyfile
+```
+
+Generated HTML is written to:
+
+```text
+docs/html/
+```
+
+The main entry point is:
+
+```text
+docs/html/index.html
+```
+
+Generated HTML is intentionally ignored by Git. The repository-controlled
+`Doxyfile` remains tracked.
+
+Doxygen warnings are treated as validation failures. The dedicated
+`CI / documentation` job generates the documentation, verifies representative
+API entries, removes the generated files, and confirms repository cleanliness.
 
 ---
 

@@ -65,3 +65,79 @@ jobs:
           fi
 
           echo "PASS: repository remains clean"
+
+  documentation:
+    name: documentation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install documentation dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          sudo apt-get update
+          sudo apt-get install --yes doxygen
+
+      - name: Validate API documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rm -rf docs/html
+          rmdir docs 2>/dev/null || true
+
+          doxygen Doxyfile
+
+          test -f docs/html/index.html
+
+          for symbol in \
+            get_next_line \
+            BUFFER_SIZE \
+            ft_strchr \
+            ft_concat \
+            ft_strjoin_gnl \
+            ft_excess
+          do
+            if ! grep -RFl "$symbol" docs/html >/dev/null 2>&1; then
+              echo "Generated documentation is missing: $symbol"
+              exit 1
+            fi
+          done
+
+          rm -rf docs/html
+          rmdir docs 2>/dev/null || true
+
+          if [ -e docs/html ]; then
+            echo "Generated documentation remains after cleanup"
+            exit 1
+          fi
+
+      - name: Verify repository cleanliness
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          status_output="$(git status --porcelain --untracked-files=all)"
+
+          if [ -n "$status_output" ]; then
+              echo "ERROR: documentation validation modified the repository:"
+              printf '%s\n' "$status_output"
+              exit 1
+          fi
+
+          ignored_output="$(git clean -ndX)"
+
+          if [ -n "$ignored_output" ]; then
+              echo "ERROR: ignored generated files remain:"
+              printf '%s\n' "$ignored_output"
+              exit 1
+          fi
+
+          echo "PASS: repository remains clean"
