@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validation:
+    name: validation (${{ matrix.compiler }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: GCC
+            cc: gcc
+          - compiler: Clang
+            cc: clang
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install validation dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes build-essential clang valgrind
+
+      - name: Run automated validation
+        env:
+          CC: ${{ matrix.cc }}
+        run: ./tester/run_tests.sh
+
+      - name: Verify repository cleanliness
+        run: |
+          status_output="$(git status --porcelain --untracked-files=all)"
+
+          if [ -n "$status_output" ]; then
+              echo "ERROR: validation modified the repository:"
+              printf '%s\n' "$status_output"
+              exit 1
+          fi
+
+          ignored_output="$(git clean -ndX)"
+
+          if [ -n "$ignored_output" ]; then
+              echo "ERROR: ignored generated files remain:"
+              printf '%s\n' "$ignored_output"
+              exit 1
+          fi
+
+          echo "PASS: repository remains clean"
