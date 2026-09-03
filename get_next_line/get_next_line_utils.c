@@ -12,20 +12,6 @@
 
 #include "get_next_line.h"
 
-size_t  ft_strlen_gnl(const char *s)
-{
-        size_t  i;
-
-        i = 0;
-        if (!s) 
-                return (0); 
-        while (s[i] && s[i] != '\n')
-                i++;
-        if (s[i] == '\n') 
-                return (i + 1);
-        return (i);
-}
-
 char    *ft_strchr(const char *s, int c)
 {
         while (*s)

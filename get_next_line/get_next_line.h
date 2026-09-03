@@ -18,15 +18,10 @@
 
 # endif
 
-# ifndef MAX_BUFFER_SIZE
-#  define MAX_BUFFER_SIZE 10000000
-
-# endif
 # include <unistd.h>
 # include <stdlib.h>
 
 char    *get_next_line(int fd);
-size_t  ft_strlen_gnl(const char *s);
 char    *ft_strchr(const char *s, int c);
 void    ft_concat(char *nxt_line, char *line, char *buffer, size_t len_buffer);
 char    *ft_strjoin_gnl(char *line, char *buffer);
