@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/LuisQAlmeida/42get_next_line/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/LuisQAlmeida/42get_next_line/actions/workflows/ci.yml)
 
+> Part of my [42 Common Core portfolio](https://github.com/LuisQAlmeida/42Portfolio).
+
 A C implementation of the mandatory `get_next_line` project from the 42
 curriculum.
 
