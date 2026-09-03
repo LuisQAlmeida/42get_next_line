@@ -1,0 +1,44 @@
+# get_next_line API documentation configuration
+# Validated with Doxygen on the Ubuntu 24.04 CI reference environment.
+
+PROJECT_NAME           = "get_next_line"
+PROJECT_BRIEF          = "Line-oriented file descriptor reader for the 42 curriculum"
+OUTPUT_LANGUAGE        = English
+
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRS         = NO
+
+INPUT                  = get_next_line/get_next_line.h
+FILE_PATTERNS          = *.h
+RECURSIVE              = NO
+
+OPTIMIZE_OUTPUT_FOR_C  = YES
+
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+
+FULL_PATH_NAMES        = NO
+
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+
+SOURCE_BROWSER         = NO
+INLINE_SOURCES         = NO
+
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_AS_ERROR          = FAIL_ON_WARNINGS
+
+QUIET                  = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+
+GENERATE_LATEX         = NO
+
+HAVE_DOT               = NO
