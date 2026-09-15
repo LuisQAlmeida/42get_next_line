@@ -21,6 +21,64 @@ repository-controlled tooling.
 
 ---
 
+## Table of Contents
+
+- [Academic Context](#academic-context)
+- [Overview](#overview)
+- [Maintained Scope](#maintained-scope)
+- [Function Contract](#function-contract)
+- [Behaviour](#behaviour)
+- [BUFFER_SIZE](#buffer_size)
+- [Implementation](#implementation)
+- [Example Flow](#example-flow)
+- [Memory Management](#memory-management)
+- [Repository Structure](#repository-structure)
+- [Usage](#usage)
+- [Automated Testing](#automated-testing)
+- [BUFFER_SIZE Test Matrix](#buffer_size-test-matrix)
+- [Compiler Validation](#compiler-validation)
+- [Valgrind](#valgrind)
+- [Continuous Integration](#continuous-integration)
+- [Maintained Validation Summary](#maintained-validation-summary)
+- [Doxygen Documentation](#doxygen-documentation)
+- [AI Usage](#ai-usage)
+- [Historical Baseline](#historical-baseline)
+- [Limitations](#limitations)
+- [License](#license)
+
+## Academic Context
+
+| | |
+| --- | --- |
+| **Curriculum** | 42 Common Core |
+| **Project** | `get_next_line` |
+| **Subject reference** | Version 14.3 |
+| **Final evaluation** | **100/100** |
+| **Project type** | Individual |
+
+<img src="docs/assets/42-evaluation.png" alt="42 get_next_line evaluation: 100/100" width="180">
+
+The original academic project received a **100/100** evaluation for the
+mandatory project.
+
+The evaluation record indicates that the optional bonus did not compile, so
+this repository does not present the bonus as an academically completed part of
+the project.
+
+The subject document supplied for this portfolio pass identifies itself as
+**Get Next Line version 14.3**. Because subject revisions may evolve over time,
+v14.3 is recorded as the supplied documentary reference rather than asserted
+as an independently verified evaluation-day revision.
+
+The current `main` branch is a maintained portfolio edition focused on the
+mandatory single-file-descriptor implementation. The immutable
+`portfolio-baseline-2026-09` tag preserves the repository state immediately
+before the structured professional modernization, while `v1.0.0` remains the
+first maintained portfolio release.
+
+See [Academic Project Context](docs/academic/README.md) for the detailed
+evaluation record, subject provenance, repository history, and AI usage notes.
+
 ## Overview
 
 `get_next_line()` provides a line-oriented interface on top of the lower-level
@@ -709,6 +767,45 @@ Generated HTML is intentionally ignored by Git. The repository-controlled
 Doxygen warnings are treated as validation failures. The dedicated
 `CI / documentation` job generates the documentation, verifies representative
 API entries, removes the generated files, and confirms repository cleanliness.
+
+
+## AI Usage
+
+AI assistance was used differently during the original academic project and
+the later portfolio modernization.
+
+### Original academic development
+
+During the academic project, AI was used as a support tool for:
+
+- understanding project concepts;
+- designing and reviewing tests;
+- reasoning about expected behaviour and edge cases.
+
+Its role in this phase was focused on learning and testing support. The
+documentation does not attribute the project implementation itself to AI.
+
+### Portfolio modernization
+
+AI was used more extensively later as an engineering assistant during the
+professional modernization of the repository.
+
+It supported activities such as:
+
+- systematic repository and code audits;
+- maintainability review;
+- regression-test strategy;
+- CI and GitHub workflow planning;
+- documentation design and review;
+- validation planning;
+- portfolio-wide consistency work.
+
+AI-assisted suggestions were reviewed against the actual implementation and
+validated before integration.
+
+This distinction is intentional: the role of AI during the original academic
+project was narrower than its later role in the professional portfolio
+workflow.
 
 ---
 
