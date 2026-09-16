@@ -8,7 +8,7 @@ OUTPUT_LANGUAGE        = English
 OUTPUT_DIRECTORY       = docs
 CREATE_SUBDIRS         = NO
 
-INPUT                  = get_next_line/get_next_line.h
+INPUT                  = include/get_next_line.h
 FILE_PATTERNS          = *.h
 RECURSIVE              = NO
 

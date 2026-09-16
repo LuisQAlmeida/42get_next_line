@@ -13,10 +13,11 @@ REPO_ROOT=$(
 )
 
 CC_BIN="${CC:-cc}"
-TEST_SOURCE="$REPO_ROOT/tester/tests.c"
-GNL_DIR="$REPO_ROOT/get_next_line"
-GNL_SOURCE="$GNL_DIR/get_next_line.c"
-GNL_UTILS="$GNL_DIR/get_next_line_utils.c"
+TEST_SOURCE="$REPO_ROOT/tests/tests.c"
+SOURCE_DIR="$REPO_ROOT/src"
+INCLUDE_DIR="$REPO_ROOT/include"
+GNL_SOURCE="$SOURCE_DIR/get_next_line.c"
+GNL_UTILS="$SOURCE_DIR/get_next_line_utils.c"
 
 BUFFER_SIZES="1 2 10 42 1024"
 VALGRIND_BUFFER_SIZE=42
@@ -41,7 +42,7 @@ compile_suite()
     "$CC_BIN" \
         -Wall -Wextra -Werror \
         -D "BUFFER_SIZE=$size" \
-        -I"$GNL_DIR" \
+        -I"$INCLUDE_DIR" \
         "$TEST_SOURCE" \
         "$GNL_SOURCE" \
         "$GNL_UTILS" \
