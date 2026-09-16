@@ -19,11 +19,12 @@ implementation and is backed by automated regression testing, GCC and Clang
 continuous integration, Valgrind memory validation, and reproducible
 repository-controlled tooling.
 
+> **42 Common Core:** 100/100 · Subject v14.3 · [Academic record & evaluation](docs/academic/README.md)
+
 ---
 
 ## Table of Contents
 
-- [Academic Context](#academic-context)
 - [Overview](#overview)
 - [Maintained Scope](#maintained-scope)
 - [Function Contract](#function-contract)
@@ -46,38 +47,6 @@ repository-controlled tooling.
 - [Limitations](#limitations)
 - [License](#license)
 
-## Academic Context
-
-| | |
-| --- | --- |
-| **Curriculum** | 42 Common Core |
-| **Project** | `get_next_line` |
-| **Subject reference** | Version 14.3 |
-| **Final evaluation** | **100/100** |
-| **Project type** | Individual |
-
-<img src="docs/assets/42-evaluation.png" alt="42 get_next_line evaluation: 100/100" width="180">
-
-The original academic project received a **100/100** evaluation for the
-mandatory project.
-
-The evaluation record indicates that the optional bonus did not compile, so
-this repository does not present the bonus as an academically completed part of
-the project.
-
-The subject document supplied for this portfolio pass identifies itself as
-**Get Next Line version 14.3**. Because subject revisions may evolve over time,
-v14.3 is recorded as the supplied documentary reference rather than asserted
-as an independently verified evaluation-day revision.
-
-The current `main` branch is a maintained portfolio edition focused on the
-mandatory single-file-descriptor implementation. The immutable
-`portfolio-baseline-2026-09` tag preserves the repository state immediately
-before the structured professional modernization, while `v1.0.0` remains the
-first maintained portfolio release.
-
-See [Academic Project Context](docs/academic/README.md) for the detailed
-evaluation record, subject provenance, repository history, and AI usage notes.
 
 ## Overview
 
