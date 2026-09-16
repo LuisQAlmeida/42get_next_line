@@ -232,8 +232,8 @@ For example:
 cc -Wall -Wextra -Werror \
    -D BUFFER_SIZE=42 \
    main.c \
-   get_next_line/get_next_line.c \
-   get_next_line/get_next_line_utils.c \
+   src/get_next_line.c \
+   src/get_next_line_utils.c \
    -Iget_next_line \
    -o gnl_example
 ```
@@ -461,15 +461,21 @@ the tested paths finish without memory leaks or invalid memory accesses.
 ## Repository Structure
 
 ```text
-42get_next_line/
+.
 ├── .github/
 │   └── workflows/
 │       └── ci.yml
-├── get_next_line/
+├── docs/
+│   ├── academic/
+│   │   └── README.md
+│   └── assets/
+│       └── 42-evaluation.png
+├── include/
+│   └── get_next_line.h
+├── src/
 │   ├── get_next_line.c
-│   ├── get_next_line.h
 │   └── get_next_line_utils.c
-├── tester/
+├── tests/
 │   ├── fixtures/
 │   │   └── giant_line.txt
 │   ├── run_tests.sh
@@ -480,22 +486,31 @@ the tested paths finish without memory leaks or invalid memory accesses.
 └── README.md
 ```
 
-### `get_next_line/`
+### `src/`
 
-Contains the maintained mandatory implementation and public header.
+Contains the maintained mandatory implementation:
 
-### `tester/`
+- `get_next_line.c`;
+- `get_next_line_utils.c`.
 
-Contains the automated regression harness and the canonical validation runner.
+### `include/`
 
-`tester/fixtures/giant_line.txt` preserves the historical 20,000-byte
-newline-free input used for long-line validation.
+Contains the maintained public interface:
+
+- `get_next_line.h`.
+
+### `tests/`
+
+Contains the first-party regression suite, validation runner, and repository
+fixture used by the giant-line regression case.
+
+`tests/fixtures/giant_line.txt` preserves the historical 20,000-byte fixture
+used by the maintained test suite.
 
 ### `.github/workflows/`
 
-Contains the GitHub Actions continuous-integration workflow.
-
----
+Contains the repository CI configuration for GCC, Clang, Valgrind, repository
+cleanliness, and Doxygen validation.
 
 ## Usage
 
@@ -534,8 +549,8 @@ Compile with strict warnings and an explicit buffer size:
 cc -Wall -Wextra -Werror \
    -D BUFFER_SIZE=42 \
    main.c \
-   get_next_line/get_next_line.c \
-   get_next_line/get_next_line_utils.c \
+   src/get_next_line.c \
+   src/get_next_line_utils.c \
    -Iget_next_line \
    -o gnl_example
 ```
@@ -553,7 +568,7 @@ Run it against a text file:
 The canonical maintained validation command is:
 
 ```sh
-./tester/run_tests.sh
+./tests/run_tests.sh
 ```
 
 The regression harness contains **13 behavioural tests**.
@@ -617,7 +632,7 @@ per compiler run.
 The default compiler can be used with:
 
 ```sh
-./tester/run_tests.sh
+./tests/run_tests.sh
 ```
 
 A specific compiler can be selected through the conventional `CC` environment
@@ -626,7 +641,7 @@ variable.
 For example:
 
 ```sh
-CC=clang ./tester/run_tests.sh
+CC=clang ./tests/run_tests.sh
 ```
 
 The maintained repository is continuously validated with both:
@@ -681,7 +696,7 @@ Each compiler job:
 
 1. checks out the repository;
 2. installs the required build tools, Clang, and Valgrind;
-3. executes the canonical `./tester/run_tests.sh` interface;
+3. executes the canonical `./tests/run_tests.sh` interface;
 4. verifies that validation leaves the repository unchanged;
 5. verifies that ignored generated artefacts were not left behind.
 
@@ -717,7 +732,7 @@ Current maintained validation:
 
 ## Doxygen Documentation
 
-The maintained interface in `get_next_line/get_next_line.h` is documented
+The maintained interface in `include/get_next_line.h` is documented
 using Doxygen-style comments.
 
 The generated API documentation describes:

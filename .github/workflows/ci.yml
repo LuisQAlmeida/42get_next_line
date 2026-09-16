@@ -44,7 +44,7 @@ jobs:
       - name: Run automated validation
         env:
           CC: ${{ matrix.cc }}
-        run: ./tester/run_tests.sh
+        run: ./tests/run_tests.sh
 
       - name: Verify repository cleanliness
         run: |

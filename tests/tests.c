@@ -8,7 +8,7 @@
 
 #define MAX_EXPECTED_LINES 8
 #define PREVIEW_LENGTH 80
-#define GIANT_FIXTURE "tester/fixtures/giant_line.txt"
+#define GIANT_FIXTURE "tests/fixtures/giant_line.txt"
 #define GIANT_LENGTH 20000
 
 typedef struct s_case
